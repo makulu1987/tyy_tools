@@ -15,7 +15,7 @@ jobs:
         run: |
           flutter config --enable-web
           flutter pub get
-          flutter build web --release --base-href="/tyy_tools/"
+          flutter build web --release
       - name: "Web Deploy 🚀"
         # https://github.com/JamesIves/github-pages-deploy-action
         uses: JamesIves/github-pages-deploy-action@4.0.0
