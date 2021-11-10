@@ -20,8 +20,14 @@ jobs:
         run: |
           pwd
           ls
+          cd build/web
       - name: "Fix root path"
         run : sed -i 's+"/"+""+g' flutter_service_worker.js
+      - name: "Print path Again"
+        run: |
+          cd ../..
+          pwd
+          ls
       - name: "Web Deploy 🚀"
         # https://github.com/JamesIves/github-pages-deploy-action
         uses: JamesIves/github-pages-deploy-action@4.0.0
