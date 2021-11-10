@@ -15,11 +15,7 @@ jobs:
         run: |
           flutter config --enable-web
           flutter pub get
-          flutter build web --release
-      - name: "Fix root path"
-        run : |
-          sed -i 's+"/":+""+g' ./build/web/flutter_service_worker.js
-          sed -i 's+"/",+""+g' ./build/web/flutter_service_worker.js
+          flutter build web --release --base-href="/tyy_tools/"
       - name: "Web Deploy 🚀"
         # https://github.com/JamesIves/github-pages-deploy-action
         uses: JamesIves/github-pages-deploy-action@4.0.0
