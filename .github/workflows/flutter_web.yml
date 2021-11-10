@@ -1,12 +1,8 @@
-name: flutter_deer web deploy
-
-# push 提交中修改`pubspec.yaml`触发此workflow。
-# 为了避免每次部署，这里使用一个不存在的文件名。
+name: Flutter Web
 on:
   push:
-    paths:
-      - 'pubspec1.yaml'
-
+    branches:
+      - master
 jobs:
   web_build_and_deploy:
     runs-on: macos-latest
