@@ -1,34 +1,29 @@
-name: Flutter Web
+name: flutter_deer web deploy
+
+# push 提交中修改`pubspec.yaml`触发此workflow。
+# 为了避免每次部署，这里使用一个不存在的文件名。
 on:
   push:
-    branches:
-      - master
+    paths:
+      - 'pubspec1.yaml'
+
 jobs:
-  build:
-    name: Build Web
-    env:
-      my_secret: ${{secrets.tyy_tools}}
-    runs-on: ubuntu-latest
+  web_build_and_deploy:
+    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2.3.1
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'dev'
-      - run: flutter config --enable-web
-      - run: flutter pub get
-      - run: flutter build web --release
-      - run: |
-          cd build/web
-          git init
-          # type configurations: your user.email and user.name followed lines 
-          # git config --global user.email your_email 
-          # git config --global user.name your_name 
-          git config --global user.email makulu1987@hotmail.com
-          git config --global user.name David
-          git status
-          # change this remote url for examle your remote url is https://github.com/onatcipli/flutter_web.git then the following:
-          git remote add origin ${{secrets.tyy_tools}}git@github.com:makulu1987/tyy_tools.git
-          git checkout -b gh-pages
-          git add --all
-          git commit -m "update"
-          git push origin gh-pages -f
+          flutter-version: '2.5.0'
+          channel: 'stable'
+      - name: "Web Build 🔧"
+        run: |
+          flutter pub get
+          flutter build web
+      - name: "Web Deploy 🚀"
+        # https://github.com/JamesIves/github-pages-deploy-action
+        uses: JamesIves/github-pages-deploy-action@4.0.0
+        with:
+          token: '${{ secrets.tyy_tools }}'
+          branch: gh-pages
+          folder: build/web
