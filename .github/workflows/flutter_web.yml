@@ -14,8 +14,9 @@ jobs:
           channel: 'stable'
       - name: "Web Build 🔧"
         run: |
+          flutter config --enable-web
           flutter pub get
-          flutter build web
+          flutter build web --release
       - name: "Web Deploy 🚀"
         # https://github.com/JamesIves/github-pages-deploy-action
         uses: JamesIves/github-pages-deploy-action@4.0.0
