@@ -16,19 +16,8 @@ jobs:
           flutter config --enable-web
           flutter pub get
           flutter build web --release
-      - name: "Print path"
-        run: |
-          pwd
-          ls
-          cd build/web
-          ls
       - name: "Fix root path"
-        run : sed -i 's+"/"+""+g' flutter_service_worker.js
-      - name: "Print path Again"
-        run: |
-          cd ../..
-          pwd
-          ls
+        run : sed -i 's+"/"+""+g' ./build/web/flutter_service_worker.js
       - name: "Web Deploy 🚀"
         # https://github.com/JamesIves/github-pages-deploy-action
         uses: JamesIves/github-pages-deploy-action@4.0.0
