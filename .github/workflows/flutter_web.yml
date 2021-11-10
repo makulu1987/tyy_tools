@@ -21,6 +21,7 @@ jobs:
           pwd
           ls
           cd build/web
+          ls
       - name: "Fix root path"
         run : sed -i 's+"/"+""+g' flutter_service_worker.js
       - name: "Print path Again"
