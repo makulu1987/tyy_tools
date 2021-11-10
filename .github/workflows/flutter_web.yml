@@ -16,6 +16,10 @@ jobs:
           flutter config --enable-web
           flutter pub get
           flutter build web --release
+      - name: "Print path"
+        run: |
+          pwd
+          ls
       - name: "Fix root path"
         run : sed -i 's+"/"+""+g' flutter_service_worker.js
       - name: "Web Deploy 🚀"
