@@ -16,6 +16,7 @@ jobs:
           flutter config --enable-web
           flutter pub get
           flutter build web --release
+          sed -i 's+"/"+""+g' flutter_service_worker.js
       - name: "Web Deploy 🚀"
         # https://github.com/JamesIves/github-pages-deploy-action
         uses: JamesIves/github-pages-deploy-action@4.0.0
