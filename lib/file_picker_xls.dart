@@ -1,3 +1,4 @@
+import 'package:excel_handler/sto_handler.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,11 @@ class _FilePickerXlsWidgetState extends State<FilePickerXlsWidget> {
     _controller.addListener(() => _extension = _controller.text);
   }
 
+  void _printPaths(paths){
+    print("paths = ");
+    print(_paths);
+  }
+
   void _pickFiles() async {
     _resetState();
     try {
@@ -35,7 +41,7 @@ class _FilePickerXlsWidgetState extends State<FilePickerXlsWidget> {
       _paths = (await FilePicker.platform.pickFiles(
         type: _pickingType,
         allowMultiple: _multiPick,
-        onFileLoading: (FilePickerStatus status) => print(status),
+        onFileLoading: (FilePickerStatus status) => _printPaths,
         allowedExtensions: (_extension?.isNotEmpty ?? false)
             ? _extension?.replaceAll(' ', '').split(',')
             : null,
@@ -240,7 +246,8 @@ class _FilePickerXlsWidgetState extends State<FilePickerXlsWidget> {
                                   .map((e) => e.path)
                                   .toList()[index]
                                   .toString();
-
+                              var excelReader = new ExcelReader();
+                              excelReader.clearVendors(excelReader.readXls(_paths?.first.bytes));
                               return ListTile(
                                 title: Text(
                                   name,
